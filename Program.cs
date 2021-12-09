@@ -11,76 +11,76 @@ namespace BlackJackCS
 
         public int Value()
         {
-            // switch (Rank)
-            // {
-            //     case "2":
-            //     case "3":
-            //     case "4":
-            //     case "5":
-            //     case "6":
-            //     case "7":
-            //     case "8":
-            //     case "9":
-            //     case "10":
-            //         return int.Parse(Rank);
+            switch (Rank)
+            {
+                case "2":
+                case "3":
+                case "4":
+                case "5":
+                case "6":
+                case "7":
+                case "8":
+                case "9":
+                case "10":
+                    return int.Parse(Rank);
 
-            //     case "Jack":
-            //     case "Queen":
-            //     case "King":
-            //         return 10;
+                case "Jack":
+                case "Queen":
+                case "King":
+                    return 10;
 
-            //     case "Ace":
-            //         return 11;
+                case "Ace":
+                    return 11;
 
-            //     default:
-            //         return 0;
+                default:
+                    return 0;
 
-            // }
+            }
             // // if 2-10 --> value = 2-10
-            if (Rank == "2")
-            {
-                return 2;
-            }
-            if (Rank == "3")
-            {
-                return 3;
-            }
-            if (Rank == "4")
-            {
-                return 4;
-            }
-            if (Rank == "5")
-            {
-                return 5;
-            }
-            if (Rank == "6")
-            {
-                return 6;
-            }
-            if (Rank == "7")
-            {
-                return 7;
-            }
-            if (Rank == "8")
-            {
-                return 8;
-            }
-            if (Rank == "9")
-            {
-                return 9;
-            }
-            // if J, Q, K --> value = 10
-            if (Rank == "10" || Rank == "Jack" || Rank == "Queen" || Rank == "King")
-            {
-                return 10;
-            }
-            // if Ace --> value = 11
-            if (Rank == "Ace")
-            {
-                return 11;
-            }
-            // default check -- c# won't run without this. 
-            return 0;
+            // if (Rank == "2")
+            // {
+            //     return 2;
+            // }
+            // if (Rank == "3")
+            // {
+            //     return 3;
+            // }
+            // if (Rank == "4")
+            // {
+            //     return 4;
+            // }
+            // if (Rank == "5")
+            // {
+            //     return 5;
+            // }
+            // if (Rank == "6")
+            // {
+            //     return 6;
+            // }
+            // if (Rank == "7")
+            // {
+            //     return 7;
+            // }
+            // if (Rank == "8")
+            // {
+            //     return 8;
+            // }
+            // if (Rank == "9")
+            // {
+            //     return 9;
+            // }
+            // // if J, Q, K --> value = 10
+            // if (Rank == "10" || Rank == "Jack" || Rank == "Queen" || Rank == "King")
+            // {
+            //     return 10;
+            // }
+            // // if Ace --> value = 11
+            // if (Rank == "Ace")
+            // {
+            //     return 11;
+            // }
+            // // default check -- c# won't run without this. 
+            // return 0;
         }
 
         override public string ToString()
@@ -217,19 +217,43 @@ namespace BlackJackCS
                 dealer.AddCard(card);
             }
 
-            // 9.  Show the player the cards in their hand and the TotalValue of their Hand
-            //     Loop through the list of cards in player's hand
-            //         for every card, print out to the user the description of the card
-            Console.WriteLine("Player, your cards are: ");
-            Console.WriteLine(String.Join(", and ", player.CurrentCards));
 
-            //      and the TotalValue of their Hand
-            Console.WriteLine($"The total value of your hand is: {player.TotalValue()}");
             // 10. If they have BUSTED (hand TotalValue is > 21), then goto step 15
-            // 11. Ask the player if they want to HIT or STAND
-            // 12. If HIT
-            //     - Ask the deck for a card and place it in the player hand, repeat step 10
-            // 13. If STAND then continue on
+            var answer = "";
+
+            while (player.TotalValue() < 21 && answer != "S")
+            {
+                // 9.  Show the player the cards in their hand and the TotalValue of their Hand
+                //     Loop through the list of cards in player's hand
+                //         for every card, print out to the user the description of the card
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine("Player, your cards are: ");
+                Console.WriteLine("*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.");
+                Console.WriteLine(String.Join(", and ", player.CurrentCards));
+                Console.WriteLine("*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.");
+
+                //      and the TotalValue of their Hand
+                Console.WriteLine($"The total value of your hand is: {player.TotalValue()}");
+                Console.WriteLine();
+                Console.WriteLine();
+
+                // 11. Ask the player if they want to HIT or STAND
+                Console.Write("Do you want to (H)it or (S)tand? ");
+                answer = Console.ReadLine().ToUpper();
+                // 12. If HIT
+                if (answer == "H")
+                {
+                    //  - Ask the deck for a card and place it in the player hand, repeat step 10
+
+                    var newCard = deck[0];
+                    deck.Remove(newCard);
+
+                    player.AddCard(newCard);
+                }
+                // 13. If STAND then continue on
+            }
+
             // 14. If the dealer's hand TotalValue is more than 21 then goto step 17
             // 15. If the dealer's hand TotalValue is less than 17
             //     - Add a card to the dealer hand and go back to 14
