@@ -36,51 +36,7 @@ namespace BlackJackCS
                     return 0;
 
             }
-            // // if 2-10 --> value = 2-10
-            // if (Rank == "2")
-            // {
-            //     return 2;
-            // }
-            // if (Rank == "3")
-            // {
-            //     return 3;
-            // }
-            // if (Rank == "4")
-            // {
-            //     return 4;
-            // }
-            // if (Rank == "5")
-            // {
-            //     return 5;
-            // }
-            // if (Rank == "6")
-            // {
-            //     return 6;
-            // }
-            // if (Rank == "7")
-            // {
-            //     return 7;
-            // }
-            // if (Rank == "8")
-            // {
-            //     return 8;
-            // }
-            // if (Rank == "9")
-            // {
-            //     return 9;
-            // }
-            // // if J, Q, K --> value = 10
-            // if (Rank == "10" || Rank == "Jack" || Rank == "Queen" || Rank == "King")
-            // {
-            //     return 10;
-            // }
-            // // if Ace --> value = 11
-            // if (Rank == "Ace")
-            // {
-            //     return 11;
-            // }
-            // // default check -- c# won't run without this. 
-            // return 0;
+
         }
 
         override public string ToString()
@@ -123,6 +79,20 @@ namespace BlackJackCS
         {
             // adds the supplied cad to the list of cards -- to the list of cards the Hand has
             CurrentCards.Add(cardToAdd);
+        }
+        public void PrintCardsAndTotal(string handName)
+        {
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine($"{handName}, your cards are: ");
+            Console.WriteLine("*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.");
+            Console.WriteLine(String.Join(", and ", CurrentCards));
+            Console.WriteLine("*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.");
+
+            //      and the TotalValue of their Hand
+            Console.WriteLine($"The total value of your hand is: {TotalValue()}");
+            Console.WriteLine();
+            Console.WriteLine();
         }
     }
 
@@ -226,18 +196,8 @@ namespace BlackJackCS
                 // 9.  Show the player the cards in their hand and the TotalValue of their Hand
                 //     Loop through the list of cards in player's hand
                 //         for every card, print out to the user the description of the card
-                Console.WriteLine();
-                Console.WriteLine();
-                Console.WriteLine("Player, your cards are: ");
-                Console.WriteLine("*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.");
-                Console.WriteLine(String.Join(", and ", player.CurrentCards));
-                Console.WriteLine("*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.");
 
-                //      and the TotalValue of their Hand
-                Console.WriteLine($"The total value of your hand is: {player.TotalValue()}");
-                Console.WriteLine();
-                Console.WriteLine();
-
+                player.PrintCardsAndTotal("Player");
                 // 11. Ask the player if they want to HIT or STAND
                 Console.Write("Do you want to (H)it or (S)tand? ");
                 answer = Console.ReadLine().ToUpper();
@@ -254,10 +214,22 @@ namespace BlackJackCS
                 // 13. If STAND then continue on
             }
 
+            player.PrintCardsAndTotal("Player");
+
             // 14. If the dealer's hand TotalValue is more than 21 then goto step 17
             // 15. If the dealer's hand TotalValue is less than 17
-            //     - Add a card to the dealer hand and go back to 14
+            while (player.TotalValue() <= 21 && dealer.TotalValue() <= 17)
+            {
+                //     - Add a card to the dealer hand and go back to 14
+                var newCard = deck[0];
+                deck.Remove(newCard);
+
+                dealer.AddCard(newCard);
+            }
+
             // 16. Show the dealer's hand TotalValue
+            dealer.PrintCardsAndTotal("Dealer");
+
             // 17. If the player's hand TotalValue > 21 show "DEALER WINS" 
             // 18. If the dealer's hand TotalValue > 21 show "PLAYER WINS"
             // 19. If the dealer's hand TotalValue is more than the player's hand TotalValue then show "DEALER WINS", else show "PLAYER WINS"
