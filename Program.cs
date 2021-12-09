@@ -11,51 +11,76 @@ namespace BlackJackCS
 
         public int Value()
         {
-            // if 2-10 --> value = 2-10
-            if (Rank == "2")
+            switch (Rank)
             {
-                return 2;
+                case "2":
+                case "3":
+                case "4":
+                case "5":
+                case "6":
+                case "7":
+                case "8":
+                case "9":
+                case "10":
+                    return int.Parse(Rank);
+
+                case "Jack":
+                case "Queen":
+                case "King":
+                    return 10;
+
+                case "Ace":
+                    return 11;
+
+                default:
+                    return 0;
+
             }
-            if (Rank == "3")
-            {
-                return 3;
-            }
-            if (Rank == "4")
-            {
-                return 4;
-            }
-            if (Rank == "5")
-            {
-                return 5;
-            }
-            if (Rank == "6")
-            {
-                return 6;
-            }
-            if (Rank == "7")
-            {
-                return 7;
-            }
-            if (Rank == "8")
-            {
-                return 8;
-            }
-            if (Rank == "9")
-            {
-                return 9;
-            }
-            // if J, Q, K --> value = 10
-            if (Rank == "10" || Rank == "Jack" || Rank == "Queen" || Rank == "King")
-            {
-                return 10;
-            }
-            // if Ace --> value = 11
-            if (Rank == "Ace")
-            {
-                return 11;
-            }
-            // default check -- c# won't run without this. 
-            return 0;
+            // // if 2-10 --> value = 2-10
+            // if (Rank == "2")
+            // {
+            //     return 2;
+            // }
+            // if (Rank == "3")
+            // {
+            //     return 3;
+            // }
+            // if (Rank == "4")
+            // {
+            //     return 4;
+            // }
+            // if (Rank == "5")
+            // {
+            //     return 5;
+            // }
+            // if (Rank == "6")
+            // {
+            //     return 6;
+            // }
+            // if (Rank == "7")
+            // {
+            //     return 7;
+            // }
+            // if (Rank == "8")
+            // {
+            //     return 8;
+            // }
+            // if (Rank == "9")
+            // {
+            //     return 9;
+            // }
+            // // if J, Q, K --> value = 10
+            // if (Rank == "10" || Rank == "Jack" || Rank == "Queen" || Rank == "King")
+            // {
+            //     return 10;
+            // }
+            // // if Ace --> value = 11
+            // if (Rank == "Ace")
+            // {
+            //     return 11;
+            // }
+            // // default check -- c# won't run without this. 
+            // return 0;
         }
 
         override public string ToString()
