@@ -34,11 +34,9 @@ namespace BlackJackCS
 
                 default:
                     return 0;
-
             }
 
         }
-
         override public string ToString()
         {
             return $"The {Rank} of {Suit}";
@@ -47,39 +45,37 @@ namespace BlackJackCS
 
     public class Hand
     {
-        // - Properties: a list of individual cards
+        // Properties: a list of individual cards
         public List<Card> CurrentCards { get; set; }
 
-        // method withing class Hand
+        // Method within class Hand
         public Hand()
         {
             CurrentCards = new List<Card>();
         }
-        // - Behaviors:
-        //     - TotalValue representing the sum of the individual Cards in the list (Hand).
+
+        // Method: represents sum of Cards in the list (Hand)
         public int TotalValue()
         {
-            //         - Start with a total = 0
+            // Start with a total of zero
             var total = 0;
-            //         - for each card in the hand do this:
+
             foreach (var card in CurrentCards)
             {
-                //   - add the amount of that card's value to total
+                // add the amount of that card's value to total
                 total = total + card.Value();
             }
-
-            //         - return "total" as the result
+            //  return "total" as the result
             return total;
         }
 
-
-
-        //     - add a card to the hand
+        // Method: add a card to the hand
         public void AddCard(Card cardToAdd)
         {
-            // adds the supplied cad to the list of cards -- to the list of cards the Hand has
             CurrentCards.Add(cardToAdd);
         }
+
+        // Method: displays cards to player and dealer in console
         public void PrintCardsAndTotal(string handName)
         {
             Console.WriteLine();
@@ -92,7 +88,6 @@ namespace BlackJackCS
             Console.ForegroundColor = ConsoleColor.DarkCyan;
             Console.WriteLine("*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.");
 
-            //      and the TotalValue of their Hand
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine($"The total value of your hand is: {TotalValue()}");
             Console.WriteLine();
@@ -129,7 +124,7 @@ namespace BlackJackCS
                 }
             }
 
-            // shuffle cards
+            // SHUFFLE CARDS
 
             // numberOfCards = length of our deck
             var numberOfCards = deck.Count;
@@ -139,7 +134,6 @@ namespace BlackJackCS
                 //   leftIndex = random integer that is greater than or equal to 0 and LESS than rightIndex. See the section "How do we get a random integer")
                 var randomNumberGenerator = new Random();
                 var leftIndex = randomNumberGenerator.Next(rightIndex);
-
                 //   Now swap the values at rightIndex and leftIndex by doing this:
                 //     leftCard = the value from deck[leftIndex]
                 var leftCard = deck[leftIndex];
@@ -150,18 +144,6 @@ namespace BlackJackCS
                 //     deck[leftIndex] = rightCard
                 deck[leftIndex] = rightCard;
             }
-            // Console.WriteLine(deck.Count);
-
-            // VIEW ALL 52 SHUFFLED CARDS
-            // foreach (var card in deck)
-            // {
-            //     Console.WriteLine(card);
-            // }
-            // - assign values to cards 
-
-            //   - 2 through 9 = a value of that number
-            //   - face cards = 10
-            //   - ace = 11
 
             // create a player hand
             var player = new Hand();
@@ -191,7 +173,6 @@ namespace BlackJackCS
                 dealer.AddCard(card);
             }
 
-
             // 10. If they have BUSTED (hand TotalValue is > 21), then goto step 15
             var answer = "";
 
@@ -200,7 +181,6 @@ namespace BlackJackCS
                 // 9.  Show the player the cards in their hand and the TotalValue of their Hand
                 //     Loop through the list of cards in player's hand
                 //         for every card, print out to the user the description of the card
-
                 player.PrintCardsAndTotal("Player");
                 // 11. Ask the player if they want to HIT or STAND
                 Console.ForegroundColor = ConsoleColor.White;
@@ -210,17 +190,14 @@ namespace BlackJackCS
                 if (answer == "H")
                 {
                     //  - Ask the deck for a card and place it in the player hand, repeat step 10
-
                     var newCard = deck[0];
                     deck.Remove(newCard);
-
                     player.AddCard(newCard);
                 }
                 // 13. If STAND then continue on
             }
 
             player.PrintCardsAndTotal("Player");
-
             // 14. If the dealer's hand TotalValue is more than 21 then goto step 17
             // 15. If the dealer's hand TotalValue is less than 17
             while (player.TotalValue() <= 21 && dealer.TotalValue() <= 17)
@@ -228,7 +205,6 @@ namespace BlackJackCS
                 //     - Add a card to the dealer hand and go back to 14
                 var newCard = deck[0];
                 deck.Remove(newCard);
-
                 dealer.AddCard(newCard);
             }
 
@@ -243,7 +219,6 @@ namespace BlackJackCS
             }
             else
             // 18. If the dealer's hand TotalValue > 21 show "PLAYER WINS"
-
             if (dealer.TotalValue() > 21)
             {
                 Console.ForegroundColor = ConsoleColor.Green;
@@ -251,7 +226,6 @@ namespace BlackJackCS
             }
             else
             // 19. If the dealer's hand TotalValue is more than the player's hand TotalValue then show "DEALER WINS", else show "PLAYER WINS"
-
             if (dealer.TotalValue() > player.TotalValue())
             {
                 Console.ForegroundColor = ConsoleColor.Red;
@@ -271,22 +245,8 @@ namespace BlackJackCS
             }
         }
 
-        // EXAMPLE of a method to build a deck
-        // static List<Card> BuildDeck()
-        // {
-        //     var newDeck = new List<Card>();
-
-        //     // code to build a deck
-        //     return newDeck;
-        // }
-
         static void Main(string[] args)
         {
-            // EXAMPLE of doing deck building in a method
-
-            // var ourNewDeck = BuildDeck();
-            // Console.WriteLine(ourNewDeck.Count);
-
             while (true)
             {
                 PlayTheGame();
@@ -301,7 +261,6 @@ namespace BlackJackCS
                 {
                     break;
                 }
-
             }
         }
     }
