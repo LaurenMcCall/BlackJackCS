@@ -130,30 +130,25 @@ namespace BlackJackCS
                 dealer.AddCard(card);
             }
 
-            Console.WriteLine(player.CurrentCards.Count);
-            Console.WriteLine(dealer.CurrentCards.Count);
+            // 9.  Show the player the cards in their hand and the TotalValue of their Hand
+            //     Loop through the list of cards in player's hand
+            Console.WriteLine("Player, your cards are: ");
+            Console.WriteLine(String.Join(", and ", player.CurrentCards));
 
-
-            // - deal two cards to player face up
-            // - deal two cards to dealer face down
-            // - player's turn (method or class?)
-            //   - player can hit or stand
-            //   - if player hits
-            //     - deal additional card
-            //       - if hand total > 21, player busts
-            //       - if player stands, then move on to dealer's turn
-            //       - if player hits again, repeat line 43-45
-            // - dealer's turn 
-            //   - if dealer's hand > || = 17, dealer stands
-            //   - if dealer's hand is < 17, dealer hits
-            //   - repeat line 48-49
-            //   - if dealer's hand is > 21, dealer busts
-            // - display winner
-            //   - winner has hand that is < || = to 21 and is closer to 21 than the other 
-            //   - if both players have same hand totals (tie), dealer wins
-            // - ask if player wants to play again
-            //   - if yes, return to line 36
-            //   - if no, exit the game
+            //      and the TotalValue of their Hand
+            // 10. If they have BUSTED (hand TotalValue is > 21), then goto step 15
+            // 11. Ask the player if they want to HIT or STAND
+            // 12. If HIT
+            //     - Ask the deck for a card and place it in the player hand, repeat step 10
+            // 13. If STAND then continue on
+            // 14. If the dealer's hand TotalValue is more than 21 then goto step 17
+            // 15. If the dealer's hand TotalValue is less than 17
+            //     - Add a card to the dealer hand and go back to 14
+            // 16. Show the dealer's hand TotalValue
+            // 17. If the player's hand TotalValue > 21 show "DEALER WINS" 
+            // 18. If the dealer's hand TotalValue > 21 show "PLAYER WINS"
+            // 19. If the dealer's hand TotalValue is more than the player's hand TotalValue then show "DEALER WINS", else show "PLAYER WINS"
+            // 20. If the value of the hands are even, show "DEALER WINS"
 
         }
     }
