@@ -231,9 +231,34 @@ namespace BlackJackCS
             dealer.PrintCardsAndTotal("Dealer");
 
             // 17. If the player's hand TotalValue > 21 show "DEALER WINS" 
+            if (player.TotalValue() > 21)
+            {
+                Console.WriteLine("DEALER WINS! ");
+            }
+            else
             // 18. If the dealer's hand TotalValue > 21 show "PLAYER WINS"
+
+            if (dealer.TotalValue() > 21)
+            {
+                Console.WriteLine("PLAYER WINS! ");
+            }
+            else
             // 19. If the dealer's hand TotalValue is more than the player's hand TotalValue then show "DEALER WINS", else show "PLAYER WINS"
-            // 20. If the value of the hands are even, show "DEALER WINS"
+
+            if (dealer.TotalValue() > player.TotalValue())
+            {
+                Console.WriteLine("DEALER WINS! ");
+            }
+            else
+            if (player.TotalValue() > dealer.TotalValue())
+            {
+                Console.WriteLine("PLAYER WINS! ");
+            }
+            else
+            {
+                // 20. If the value of the hands are even, show "DEALER WINS"
+                Console.WriteLine("DEALER WINS! ");
+            }
 
         }
     }
