@@ -83,12 +83,17 @@ namespace BlackJackCS
         public void PrintCardsAndTotal(string handName)
         {
             Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.Magenta;
             Console.WriteLine($"{handName}, your cards are: ");
-            Console.WriteLine("*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.");
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
+            Console.WriteLine("*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.");
+            Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine(String.Join(", and ", CurrentCards));
-            Console.WriteLine("*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.");
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
+            Console.WriteLine("*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.");
 
             //      and the TotalValue of their Hand
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine($"The total value of your hand is: {TotalValue()}");
             Console.WriteLine();
 
@@ -198,6 +203,7 @@ namespace BlackJackCS
 
                 player.PrintCardsAndTotal("Player");
                 // 11. Ask the player if they want to HIT or STAND
+                Console.ForegroundColor = ConsoleColor.White;
                 Console.Write("Do you want to (H)it or (S)tand? ");
                 answer = Console.ReadLine().ToUpper();
                 // 12. If HIT
@@ -232,31 +238,36 @@ namespace BlackJackCS
             // 17. If the player's hand TotalValue > 21 show "DEALER WINS" 
             if (player.TotalValue() > 21)
             {
-                Console.WriteLine("DEALER WINS! ");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("DEALER WINS! 👊 ");
             }
             else
             // 18. If the dealer's hand TotalValue > 21 show "PLAYER WINS"
 
             if (dealer.TotalValue() > 21)
             {
-                Console.WriteLine("PLAYER WINS! ");
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("PLAYER WINS! 🥳 ");
             }
             else
             // 19. If the dealer's hand TotalValue is more than the player's hand TotalValue then show "DEALER WINS", else show "PLAYER WINS"
 
             if (dealer.TotalValue() > player.TotalValue())
             {
-                Console.WriteLine("DEALER WINS! ");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("DEALER WINS! 👊 ");
             }
             else
             if (player.TotalValue() > dealer.TotalValue())
             {
-                Console.WriteLine("PLAYER WINS! ");
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("PLAYER WINS! 🥳 ");
             }
             else
             {
                 // 20. If the value of the hands are even, show "DEALER WINS"
-                Console.WriteLine("DEALER WINS! ");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("DEALER WINS! 👊 ");
             }
         }
 
@@ -282,6 +293,7 @@ namespace BlackJackCS
 
                 Console.WriteLine();
                 Console.WriteLine();
+                Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine("Would you like to play again? (Y)es or (N)o ");
                 var answer = Console.ReadLine().ToUpper();
 
