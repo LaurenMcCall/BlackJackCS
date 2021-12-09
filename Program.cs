@@ -21,16 +21,30 @@ namespace BlackJackCS
         // - Properties: a list of individual cards
         public List<Card> CurrentCards { get; set; }
 
+        // method withing class Hand
         public Hand()
         {
             CurrentCards = new List<Card>();
         }
         // - Behaviors:
-        //     - TotalValue representing the sum of the individual Cards in list.
-        //         - Start with a total = 0
-        //         - for each card in the hand do this:
-        //             - add the amount of that card's value to total
-        //         - return "total" as the result
+        //     - TotalValue representing the sum of the individual Cards in the list (Hand).
+        public int TotalValue()
+        {
+            //         - Start with a total = 0
+            var total = 0;
+            //         - for each card in the hand do this:
+            foreach (var card in CurrentCards)
+            {
+                //   - add the amount of that card's value to total
+                total = total + card.Value();
+            }
+
+            //         - return "total" as the result
+            return total;
+        }
+
+
+
         //     - add a card to the hand
         public void AddCard(Card cardToAdd)
         {
@@ -132,10 +146,12 @@ namespace BlackJackCS
 
             // 9.  Show the player the cards in their hand and the TotalValue of their Hand
             //     Loop through the list of cards in player's hand
+            //         for every card, print out to the user the description of the card
             Console.WriteLine("Player, your cards are: ");
             Console.WriteLine(String.Join(", and ", player.CurrentCards));
 
             //      and the TotalValue of their Hand
+            Console.WriteLine($"The total value of your hand is: {player.TotalValue()}");
             // 10. If they have BUSTED (hand TotalValue is > 21), then goto step 15
             // 11. Ask the player if they want to HIT or STAND
             // 12. If HIT
