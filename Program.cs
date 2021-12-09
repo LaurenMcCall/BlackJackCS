@@ -110,19 +110,28 @@ namespace BlackJackCS
 
             // ask the deck for card and deal to player 
             // - the card is equal to the 0th index of the deck list
-            var firstPlayerCard = deck[0];
+            for (var numberOfCardsToDeal = 0; numberOfCardsToDeal < 2; numberOfCardsToDeal++)
+            {
+                var card = deck[0];
+                // - remove that card from the deck list
+                deck.Remove(card);
+                // - call the "add card" behavior of the hand and pass it this card   
+                player.AddCard(card);
+            }
 
-            // - remove that card from the deck list
-            deck.Remove(firstPlayerCard);
-
-            // - call the "add card" behavior of the hand and pass it this card   
-            player.AddCard(firstPlayerCard);
-
-            var secondPlayerCard = deck[0];
-            deck.Remove(secondPlayerCard);
-            player.AddCard(secondPlayerCard);
+            // ask the deck for card and deal to dealer 
+            // - the card is equal to the 0th index of the deck list
+            for (var numberOfCardsToDeal = 0; numberOfCardsToDeal < 2; numberOfCardsToDeal++)
+            {
+                var card = deck[0];
+                // - remove that card from the deck list
+                deck.Remove(card);
+                // - call the "add card" behavior of the hand and pass it this card   
+                dealer.AddCard(card);
+            }
 
             Console.WriteLine(player.CurrentCards.Count);
+            Console.WriteLine(dealer.CurrentCards.Count);
 
 
             // - deal two cards to player face up
