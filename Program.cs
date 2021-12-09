@@ -89,7 +89,7 @@ namespace BlackJackCS
                 //     deck[leftIndex] = rightCard
                 deck[leftIndex] = rightCard;
             }
-            Console.WriteLine(deck.Count);
+            // Console.WriteLine(deck.Count);
 
             // VIEW ALL 52 SHUFFLED CARDS
             // foreach (var card in deck)
