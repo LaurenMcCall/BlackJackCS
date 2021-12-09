@@ -1,0 +1,67 @@
+P - 
+  - Create a playable game of Blackjack
+
+E - 
+  - computer deals two cards to the house face down (hidden from user)
+  - computer deals two cards to player face up 
+  - house hand: 5 of Spades and Jack of Hearts
+  - player hand: 2 of Clubs and Ace of Hearts
+  - player hits and is dealt 7 of Spades 
+    - 2 + 11 + 7 = 20
+    - player stands
+  - house shows its cards and hits until cards total 17 or more.
+    - 5 + 10 = 15
+    - house hits and is dealt a 3 of Diamonds
+    - 5 + 10 + 3 = 18
+    - house stands
+  - player wins because 20 > 18 and 20 < || = 21
+
+  D -
+    - list
+      - deck of cards
+    - string
+    - int
+    - methods
+    - class
+    - loops
+      - while?
+    - if/else conditions
+  
+  A -
+    - create a deck of 52 cards 
+      - class Card() 
+        - rank
+        - suit
+        - value
+    - assign values to cards 
+      - 2 through 10 = a value of that number
+      - face cards = 10
+      - ace = 11
+    - shuffle deck of cards
+      - Fisher-Yates shuffle
+    - deal two cards from top of deck to player 
+      - show cards
+    - deal two cards from top of deck to dealer
+      - do not show cards
+    - player's turn (method)
+      - player can hit or stand
+      - if player hits
+        - deal additional card
+          - if hand total > 21, player busts
+          - if player stands, then move on to dealer's turn
+          - if player hits again, repeat previous three steps
+    - dealer's turn (method)
+      - if dealer's hand > || = 17, dealer stands
+      - if dealer's hand is < 17, dealer hits
+      - repeat line previous two steps
+      - if dealer's hand is > 21, dealer busts
+    - display winner
+      - winner has hand that is < || = to 21 and is closer to 21 than the other 
+        - if player hand < || = 21 AND greater than dealer, player wins
+        - if player hand is < || = 21 AND less than dealer, dealer wins
+        - if player hand is < || = 21 AND equal to dealers, dealer wins
+    - ask if player wants to play again
+      - if yes, return to shuffle deck step
+      - if no, exit the game
+
+    
