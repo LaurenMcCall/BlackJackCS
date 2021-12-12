@@ -48,7 +48,7 @@ namespace BlackJackCS
         // Properties: a list of individual cards
         public List<Card> CurrentCards { get; set; }
 
-        // Method within class Hand
+        // Constructor Method within class Hand
         public Hand()
         {
             CurrentCards = new List<Card>();
@@ -172,7 +172,7 @@ namespace BlackJackCS
                 // - call the "add card" behavior of the hand and pass it this card   
                 dealer.AddCard(card);
             }
-
+            // Console.WriteLine(player.CurrentCards.ToString());
             // 10. If they have BUSTED (hand TotalValue is > 21), then goto step 15
             var answer = "";
 
