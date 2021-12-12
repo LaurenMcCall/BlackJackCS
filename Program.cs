@@ -43,6 +43,71 @@ namespace BlackJackCS
         }
     }
 
+    public class Deck
+    {
+        public List<Card> Cards { get; set; } = new List<Card>();
+        // BEHAVIORS:
+        // initialize a list of 52 cards
+        public void Initialize()
+        {
+            // - Make a list of the fours suits -- call this `suits`
+            var suits = new List<string>() { "clubs", "Diamonds", "Hearts", "Spades" };
+
+            // - Make of a list of 13 ranks -- call this list `ranks`
+            var ranks = new List<string>() { "Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King" };
+
+            // - Make a loop that goes through all the suits
+            foreach (var suit in suits)
+            {
+                //   Make a loop that goes through all the 'ranks'
+                foreach (var rank in ranks)
+                {
+                    var card = new Card()
+                    {
+                        Suit = suit,
+                        Rank = rank,
+                    };
+
+                    Cards.Add(card);
+                }
+            }
+        }
+
+        // shuffle
+        public void Shuffle()
+        {
+            // numberOfCards = length of our deck
+            var numberOfCards = Cards.Count;
+            // for rightIndex from numberOfCards - 1 down to 1 do:
+            for (var rightIndex = numberOfCards - 1; rightIndex > 1; rightIndex--)
+            {
+                //   leftIndex = random integer that is greater than or equal to 0 and LESS than rightIndex. See the section "How do we get a random integer")
+                var randomNumberGenerator = new Random();
+                var leftIndex = randomNumberGenerator.Next(rightIndex);
+                //   Now swap the values at rightIndex and leftIndex by doing this:
+                //     leftCard = the value from Cards[leftIndex]
+                var leftCard = Cards[leftIndex];
+                //     rightCard = the value from Cards[rightIndex]
+                var rightCard = Cards[rightIndex];
+                //     Cards[rightIndex] = leftCard
+                Cards[rightIndex] = leftCard;
+                //     Cards[leftIndex] = rightCard
+                Cards[leftIndex] = rightCard;
+            }
+        }
+
+        // deal
+        public Card Deal()
+        {
+            var card = Cards[0];
+            // - remove that card from the deck list
+            Cards.Remove(card);
+
+            return card;
+        }
+
+    }
+
     public class Hand
     {
         // Properties: a list of individual cards
@@ -100,50 +165,13 @@ namespace BlackJackCS
         static void PlayTheGame()
         {
             // - create a blank list of cards -- call this `deck`
-            var deck = new List<Card>();
+            var deck = new Deck();
 
-            // - Make a list of the fours suits -- call this `suits`
-            var suits = new List<string>() { "clubs", "Diamonds", "Hearts", "Spades" };
+            deck.Initialize();
 
-            // - Make of a list of 13 ranks -- call this list `ranks`
-            var ranks = new List<string>() { "Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King" };
+            deck.Shuffle();
 
-            // - Make a loop that goes through all the suits
-            foreach (var suit in suits)
-            {
-                //   Make a loop that goes through all the 'ranks'
-                foreach (var rank in ranks)
-                {
-                    var card = new Card()
-                    {
-                        Suit = suit,
-                        Rank = rank,
-                    };
-
-                    deck.Add(card);
-                }
-            }
-
-            // SHUFFLE CARDS
-
-            // numberOfCards = length of our deck
-            var numberOfCards = deck.Count;
-            // for rightIndex from numberOfCards - 1 down to 1 do:
-            for (var rightIndex = numberOfCards - 1; rightIndex > 1; rightIndex--)
-            {
-                //   leftIndex = random integer that is greater than or equal to 0 and LESS than rightIndex. See the section "How do we get a random integer")
-                var randomNumberGenerator = new Random();
-                var leftIndex = randomNumberGenerator.Next(rightIndex);
-                //   Now swap the values at rightIndex and leftIndex by doing this:
-                //     leftCard = the value from deck[leftIndex]
-                var leftCard = deck[leftIndex];
-                //     rightCard = the value from deck[rightIndex]
-                var rightCard = deck[rightIndex];
-                //     deck[rightIndex] = leftCard
-                deck[rightIndex] = leftCard;
-                //     deck[leftIndex] = rightCard
-                deck[leftIndex] = rightCard;
-            }
+            deck.Deal();
 
             // create a player hand
             var player = new Hand();
@@ -155,9 +183,7 @@ namespace BlackJackCS
             // - the card is equal to the 0th index of the deck list
             for (var numberOfCardsToDeal = 0; numberOfCardsToDeal < 2; numberOfCardsToDeal++)
             {
-                var card = deck[0];
-                // - remove that card from the deck list
-                deck.Remove(card);
+                Card card = deck.Deal();
                 // - call the "add card" behavior of the hand and pass it this card   
                 player.AddCard(card);
             }
@@ -166,9 +192,7 @@ namespace BlackJackCS
             // - the card is equal to the 0th index of the deck list
             for (var numberOfCardsToDeal = 0; numberOfCardsToDeal < 2; numberOfCardsToDeal++)
             {
-                var card = deck[0];
-                // - remove that card from the deck list
-                deck.Remove(card);
+                Card card = deck.Deal();
                 // - call the "add card" behavior of the hand and pass it this card   
                 dealer.AddCard(card);
             }
@@ -189,10 +213,8 @@ namespace BlackJackCS
                 // 12. If HIT
                 if (answer == "H")
                 {
-                    //  - Ask the deck for a card and place it in the player hand, repeat step 10
-                    var newCard = deck[0];
-                    deck.Remove(newCard);
-                    player.AddCard(newCard);
+                    Card card = deck.Deal();
+                    player.AddCard(card);
                 }
                 // 13. If STAND then continue on
             }
@@ -203,9 +225,8 @@ namespace BlackJackCS
             while (player.TotalValue() <= 21 && dealer.TotalValue() <= 17)
             {
                 //     - Add a card to the dealer hand and go back to 14
-                var newCard = deck[0];
-                deck.Remove(newCard);
-                dealer.AddCard(newCard);
+                Card card = deck.Deal();
+                dealer.AddCard(card);
             }
 
             // 16. Show the dealer's hand TotalValue
