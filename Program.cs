@@ -106,6 +106,19 @@ namespace BlackJackCS
             return card;
         }
 
+        public List<Card> DealMultiple(int numberOfCardsToDeal)
+        {
+            var multipleCards = new List<Card>();
+
+            for (int count = 0; count < numberOfCardsToDeal; count++)
+            {
+                Card dealtCard = Deal();
+
+                multipleCards.Add(dealtCard);
+            }
+
+            return multipleCards;
+        }
     }
 
     public class Hand
@@ -140,6 +153,14 @@ namespace BlackJackCS
             CurrentCards.Add(cardToAdd);
         }
 
+        // Adds multiple cards to my hand
+        public void AddCards(List<Card> cardsToAdd)
+        {
+            foreach (Card card in cardsToAdd)
+            {
+                AddCard(card);
+            }
+        }
         // Method: displays cards to player and dealer in console
         public void PrintCardsAndTotal(string handName)
         {
@@ -181,12 +202,9 @@ namespace BlackJackCS
 
             // ask the deck for card and deal to player 
             // - the card is equal to the 0th index of the deck list
-            for (var numberOfCardsToDeal = 0; numberOfCardsToDeal < 2; numberOfCardsToDeal++)
-            {
-                Card card = deck.Deal();
-                // - call the "add card" behavior of the hand and pass it this card   
-                player.AddCard(card);
-            }
+            player.AddCards(deck.DealMultiple(2));
+
+            dealer.AddCards(deck.DealMultiple(2));
 
             // ask the deck for card and deal to dealer 
             // - the card is equal to the 0th index of the deck list
