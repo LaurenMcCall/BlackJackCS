@@ -179,6 +179,34 @@ namespace BlackJackCS
             Console.WriteLine();
 
         }
+
+        public bool NotBusted()
+        {
+            return !Busted();
+        }
+
+        public bool Busted()
+        {
+            if (TotalValue() > 21)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public bool DealerShouldHit()
+        {
+            if (TotalValue() <= 17)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 
     class Program
@@ -240,7 +268,7 @@ namespace BlackJackCS
             player.PrintCardsAndTotal("Player");
             // 14. If the dealer's hand TotalValue is more than 21 then goto step 17
             // 15. If the dealer's hand TotalValue is less than 17
-            while (player.TotalValue() <= 21 && dealer.TotalValue() <= 17)
+            while (player.NotBusted() && dealer.DealerShouldHit())
             {
                 //     - Add a card to the dealer hand and go back to 14
                 Card card = deck.Deal();
@@ -251,14 +279,14 @@ namespace BlackJackCS
             dealer.PrintCardsAndTotal("Dealer");
 
             // 17. If the player's hand TotalValue > 21 show "DEALER WINS" 
-            if (player.TotalValue() > 21)
+            if (player.Busted())
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("DEALER WINS! 👊 ");
             }
             else
             // 18. If the dealer's hand TotalValue > 21 show "PLAYER WINS"
-            if (dealer.TotalValue() > 21)
+            if (dealer.Busted())
             {
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("PLAYER WINS! 🥳 ");
